@@ -1,6 +1,11 @@
 # sms-relay
 Relays SMS to hide the nmber
 
+https://www.twilio.com/docs/sms/api/message-resource
+
+https://www.twilio.com/docs/sms
+
+
 
 Array
 (
@@ -84,6 +89,110 @@ Array
     [AccountSid] => ACf5831563fb261642d639a7580eb5ac6e
     [From] => +16015001794
     [ApiVersion] => 2010-04-01
+
 )
+
+
+INSERT INTO `hiddensms`.`sms_log`
+(`idsms_log`,
+`ToCountry`,
+`SmsMessageSid`,
+`NumMedia`,
+` ToCity`,
+`FromZip`,
+`SmsSid`,
+`FromState`,
+`SmsStatus`,
+`FromCity`,
+`Body`,
+`FromCountry`,
+`To`,
+`Tozip`,
+`MessageSid`,
+`AccountSid`,
+`From`,
+`ApiVersion`)
+VALUES
+(<{idsms_log: }>,
+<{ToCountry: }>,
+<{SmsMessageSid: }>,
+<{NumMedia: }>,
+<{ ToCity: }>,
+<{FromZip: }>,
+<{SmsSid: }>,
+<{FromState: }>,
+<{SmsStatus: }>,
+<{FromCity: }>,
+<{Body: }>,
+<{FromCountry: }>,
+<{To: }>,
+<{Tozip: }>,
+<{MessageSid: }>,
+<{AccountSid: }>,
+<{From: }>,
+<{ApiVersion: }>);
+
+
+INSERT INTO `hiddensms`.`phone_log`
+(`idphone_log`,
+`Called`,
+`ToState`,
+`CallerCountry`,
+`Direction`,
+`CallerState`,
+`ToZip`,
+`CallSid`,
+`To`,
+`CallerZip`,
+`ToCountry`,
+`ApiVersion`,
+`CalledZip`,
+`CalledCity`,
+`CallStatus`,
+`From`,
+`AccountSid`,
+`CalledCountry`,
+`CallerCity`,
+`Caller`,
+`FromCountry`,
+`ToCity`,
+`ErrorUrl`,
+`FromCity`,
+`CalledState`,
+`ErrorCode`,
+`FromZip`,
+`FromState`)
+VALUES
+(<{idphone_log: }>,
+<{Called: }>,
+<{ToState: }>,
+<{CallerCountry: }>,
+<{Direction: }>,
+<{CallerState: }>,
+<{ToZip: }>,
+<{CallSid: }>,
+<{To: }>,
+<{CallerZip: }>,
+<{ToCountry: }>,
+<{ApiVersion: }>,
+<{CalledZip: }>,
+<{CalledCity: }>,
+<{CallStatus: }>,
+<{From: }>,
+<{AccountSid: }>,
+<{CalledCountry: }>,
+<{CallerCity: }>,
+<{Caller: }>,
+<{FromCountry: }>,
+<{ToCity: }>,
+<{ErrorUrl: }>,
+<{FromCity: }>,
+<{CalledState: }>,
+<{ErrorCode: }>,
+<{FromZip: }>,
+<{FromState: }>);
+
+
+
 
 
