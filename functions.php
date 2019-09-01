@@ -1,47 +1,81 @@
 <?php 
 
-function save_phone_log(){
-
-  global $twillo_Mock_phone_array;
-
-    $predefinedChecksum = "84e602bbec8124f298e353171fb7f5b2"; // this is the hash value of all the array keys
-    $keys = array_keys($twillo_Mock_phone_array);
-    $values = array_values($twillo_Mock_phone_array);
+function save_phone_log($thearray){
+    global $db;
+    $thearray = backtick_mysql_reserved_in_array($thearray);
+    $thearray = escape_the_array($thearray);
+    $keys = array_keys($thearray);
+    $values = array_values($thearray);
     $sql = "INSERT INTO phone_log (" . join(",", $keys) . ") VALUES ('" . join("','", $values ) . "');";
-
-    echo $sql;
-
-    //$checksum = md5(join(',',$keys));
-   // if ($checksum<>$predefinedChecksum) exit;
-  //  else $res = mysql_query($qry, $conn);
-    
-    
-
-    
+    if(mysqli_query($db, $sql)){
+      echo "Records inserted successfully.";
+  } else{
+      echo "ERROR: Could not able to execute $sql. " . mysqli_error($db);
+  }
+      
 }
 
-function save_sms_log(){
- 
-  global $twillo_Mock_sms_array;
-
-  $predefinedChecksum = "84e602bbec8124f298e353171fb7f5b2"; // this is the hash value of all the array keys
-  $keys = array_keys($twillo_Mock_phone_array);
-  $values = array_values($twillo_Mock_phone_array);
+function save_sms_log($thearray){
+  global $db;
+  $thearray = backtick_mysql_reserved_in_array($thearray);
+  $thearray = escape_the_array($thearray);
+  $keys = array_keys($thearray);
+  $values = array_values($thearray);
   $sql = "INSERT INTO sms_log (" . join(",", $keys) . ") VALUES ('" . join("','", $values ) . "');";
+  if(mysqli_query($db, $sql)){
+    echo "Records inserted successfully.";
+} else{
+    echo "ERROR: Could not able to execute $sql. " . mysqli_error($db);
+}
 
-  echo $sql;
-
-  //$checksum = md5(join(',',$keys));
- // if ($checksum<>$predefinedChecksum) exit;
-//  else $res = mysql_query($qry, $conn);
-
+ 
 }
 
 //replace mysql reserved words in an array
 
-function replace_mysql_reserved_in_array(){
+function backtick_mysql_reserved_in_array(& $thearray){
 
-  global $twillo_Mock_phone_array;
-  global $twillo_Mock_sms_array;
+  // Associative Array
+  foreach ($thearray as $key => $value){
 
+    if (strtolower($key) == 'to'){
+      $thearray =  change_key($thearray,"To", '`' . "To". '`');
+    }
+
+    if (strtolower($key) == "from"){
+      $thearray =  change_key($thearray,"From", '`' . "From" . '`');
+    }
+
+  }
+
+  return $thearray;
+
+}
+
+
+function change_key( $array, $old_key, $new_key ) {
+
+  if( ! array_key_exists( $old_key, $array ) )
+      return $array;
+
+  $keys = array_keys( $array );
+  $keys[ array_search( $old_key, $keys ) ] = $new_key;
+
+  return array_combine( $keys, $array );
+}
+
+function post_type_sms($thearray){
+
+  return array_key_exists("SmsSid",$thearray);
+
+}
+
+function escape_the_array($thearray){
+   
+  global $db;
+
+  foreach ($thearray as $key => $value){
+    $thearray[$key] = mysqli_escape_string($db,$value);      
+  }
+  return $thearray;
 }

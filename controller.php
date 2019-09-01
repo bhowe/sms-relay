@@ -1,7 +1,6 @@
 <?php
 
 require_once('config.php');
-require_once('mock_test_objects.php');
 require_once('functions.php');
 
 
@@ -10,10 +9,14 @@ use Twilio\Rest\Client;
 use Twilio\Exceptions\TwilioException;
 
 $client = new Client($sid, $token);
+$workit = $_POST;
+if (post_type_sms($workit)){    
+    save_sms_log($workit);
+}else{
+  
+    save_phone_log($workit);
+}
 
-save_phone_log();
-
-//save incoming
 
 //use case fred sends a text to number the from is 601-000-0000
 //Forwards to 601-500-1794
