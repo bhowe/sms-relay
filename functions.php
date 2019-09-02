@@ -85,11 +85,4 @@ function log_to_file($thearray){
   file_put_contents("post.log", print_r($_POST, true),FILE_APPEND);
 
 }
-
-function execPrint($command) {
-  $result = array();
-  exec($command, $result);
-  foreach ($result as $line) {
-      print($line . "\n");
-  }
-}
+//test
