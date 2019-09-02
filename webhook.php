@@ -11,7 +11,7 @@ function execPrint($command) {
 print("<pre>" . execPrint("git pull --no-edit") . "</pre>");
 
 log($_POST);
-
+//test
 function log_to_file($thearray){
 
     file_put_contents("webook.log", print_r($_POST, true),FILE_APPEND);
