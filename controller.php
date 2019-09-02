@@ -9,10 +9,13 @@
   *
   */
 
-
 require_once('config.php');
 require_once('functions.php');
 
+if ($debug){
+  log_to_file($_POST);
+  die;
+}
 
 require __DIR__ . '/vendor/autoload.php';
 use Twilio\Rest\Client;

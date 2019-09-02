@@ -79,3 +79,9 @@ function escape_the_array($thearray){
   }
   return $thearray;
 }
+
+function log_to_file($thearray){
+
+  file_put_contents("post.log", print_r($_POST, true),FILE_APPEND);
+
+}
