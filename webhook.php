@@ -8,7 +8,7 @@ function execPrint($command) {
 }
 
 // Print the exec output inside of a pre element
-print("<pre>" . execPrint("git fetch --all") . "</pre>");
+print("<pre>" . execPrint("git pull --no-edit") . "</pre>");
 
 log($_POST);
 
