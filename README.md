@@ -1,5 +1,4 @@
-# TWILLO STARTER PACK
-
+# SMS RELAY
 https://www.twilio.com/docs/sms/api/message-resource
 
 https://www.twilio.com/docs/sms
