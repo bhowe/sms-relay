@@ -1,7 +1,9 @@
 <?php
 
+echo 'test';
+
 include("config.php");
- //res
+ //rest
 function execPrint($command) {
   $result = array();
   exec($command, $result);
@@ -10,13 +12,7 @@ function execPrint($command) {
   }
 }
 
+
+
 // Print the exec output inside of a pre element
 print("<pre>" . execPrint($git_pull_command) . "</pre>");
-
-log($_POST);
-//super
-function log_to_file($thearray){
-
-    file_put_contents("webook.log", print_r($_POST, true),FILE_APPEND);
-  
-  }
