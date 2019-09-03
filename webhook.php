@@ -1,7 +1,7 @@
 <?php
 
 include("config.php");
-
+ 
 function execPrint($command) {
   $result = array();
   exec($command, $result);
