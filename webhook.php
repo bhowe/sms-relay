@@ -1,4 +1,7 @@
 <?php
+
+include("config.php");
+
 function execPrint($command) {
   $result = array();
   exec($command, $result);
@@ -8,7 +11,7 @@ function execPrint($command) {
 }
 
 // Print the exec output inside of a pre element
-print("<pre>" . execPrint("git pull --no-edit") . "</pre>");
+print("<pre>" . execPrint($git_pull_command) . "</pre>");
 
 log($_POST);
 //super
