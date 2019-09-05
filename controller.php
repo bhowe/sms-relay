@@ -12,26 +12,62 @@
 require_once('config.php');
 require_once('functions.php');
 
-//var_dump($_POST);
-
-if ($debug){
-  log_to_file($_POST);
-  die;
-}
-
-
-
 require __DIR__ . '/vendor/autoload.php';
 use Twilio\Rest\Client;
 use Twilio\Exceptions\TwilioException;
 
 $client = new Client($sid, $token);
+
+$service = $client->proxy->v1->services
+                             ->create($_POST['SmsMessageSid']);
+
+
+$phone_number = $client->proxy->v1->services($service)
+                                  ->phoneNumbers
+                                  ->create(array(
+                                               "sid" => $sid
+                                           )
+                                  );
+
+
+ $session = $client->proxy->v1->services($service)
+                                  ->sessions
+                                  ->create(array($_POST['SmsMessageSid'] => "Chat Session"));                               
+
+
+print($phone_number->sid);
+
+/*
+# Add our first participant
+$participantA = $session.participants.create(
+  identifier: $_POST['From'],
+  friendly_name: "Alice"
+);
+
+# Add our second participant
+$participantB = $session.participants.create(
+  identifier: "+16015001794",
+  friendly_name: "Bob"
+);
+
+
+# Retrieve the Twilio proxy numbers assigned to the two participants
+puts(participantA.proxy_identifier);
+puts(participantB.proxy_identifier);
+
+echo 'send mail';*/
+
+
+
+die;
+
+
 $workit = $_POST;
 //determines what post type is coming from the twillo rest api
 if (post_type_sms($workit)){    
     save_sms_log($workit);
     //forard the text
-    if ($_POST['From'] !== $forwarded_to){ //if its not a message from here kick it over there
+    if (true){ //if its not a message from here kick it over there
 
       try {
         $messageid =   $client->messages->create(
